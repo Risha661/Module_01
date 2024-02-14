@@ -20,7 +20,6 @@
     console.log(`Сумма канцелярских товаров:${count * secondPrice}`);
 }
 */
-
 {
     const items = prompt('Введите наименование товара');
 
