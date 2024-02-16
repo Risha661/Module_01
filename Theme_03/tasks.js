@@ -9,7 +9,7 @@
         console.log('Дождя нет!')
     }
 }
-*/
+
 
 {
     const mathematics = prompt('Введите кол-во баллов по математике:');
@@ -21,11 +21,21 @@
         alert('Поздравляю, вы поступили на бюджет!');
     }
 }
-    /*
-    switch (totalPoints) {
-        case mathematics >= 85:
-        case russianLanguage >= 75:
-        case informatics >= 95:
-        break;
+*/
+/*
+switch (totalPoints) {
+    case mathematics >= 85:
+    case russianLanguage >= 75:
+    case informatics >= 95:
+    break;
+}
+Данное решение не подходит, но сохранено на будущее */
+
+{
+    const maxMoney = prompt('Введите необходимую сумму');
+    if (maxMoney%100==0) {
+        console.log('Заберите деньги из банкомата');
+    } else {
+        console.log('Банкомат не может выдать данную сумму');
     }
-    Данное решение не подходит, но сохранено на будущее */
+}
