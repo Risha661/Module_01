@@ -1,3 +1,4 @@
+'use strict';
 function convMoney (priceEuro) {
     let dollar = priceEuro * 1.2;
     return (dollar * 64);
