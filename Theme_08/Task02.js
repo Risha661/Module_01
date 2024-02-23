@@ -9,9 +9,14 @@
 // console.log(arrGeneration(100));
 
 function arrGeneration(items, m, n) {
-    let newArr = [];
-    let max = Math.max(n, m);
-    let min = Math.min(n, m);
+    const newArr = [];
+    let max = m;
+    let min = n;
+    if(n > m) {
+        max = n;
+        min = m;
+    }
+    
     for (let i = 0; i < items; i++) {
         newArr[i] = Math.floor(Math.random() * (max - min + 1) + min);
     }
