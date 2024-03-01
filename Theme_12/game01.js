@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function checkNumber(number) {
   alert(number);

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 function generateArray(arr) {
   let randomNumber = Math.floor(Math.random() * 11);
   arr.push(randomNumber);
