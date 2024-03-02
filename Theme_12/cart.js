@@ -21,7 +21,7 @@ const cart = {
     return totalDiscount * (1 - this.discount / 100);
   },
   add(name, price, quantity = 1) {
-    const newItem = { name, price, quantity };
+    const newItem = {name, price, quantity};
     this.items.push(newItem);
     this.increaseCount(quantity);
   },
@@ -45,11 +45,9 @@ cart.add('milk', 100, 3); // отрабатывает и выводит в ко�
 cart.add('eggs', 75, 1); // отрабатывает и выводит в консоль
 cart.add('tomato', 250, 4); // отрабатывает и выводит в консоль
 cart.setDiscount = 'METHED'; // применяем промокод
-cart.calculateItemPrice(); //пересчитываем корзину заново
 cart.print(); // выводим сумму корзины с скидкой
 
 cart.clear();
 cart.add('salt', 100, 2); // отрабатывает и выводит в консоль
 cart.setDiscount = 'NEWYEAR'; // применяем промокод
-cart.calculateItemPrice(); //пересчитываем корзину заново
 cart.print(); // выводим сумму корзины с скидкой

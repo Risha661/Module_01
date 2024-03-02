@@ -3,24 +3,28 @@
 const rectangle = {
   width: 5,
   height: 5,
-  setWidth: function(value) {
+  setWidth(value) {
     if (typeof value === 'number') {
       this.width = value;
-    } else { console.log('Введите корректный размер ширины прямоугольника'); }
+    } else {
+      console.log('Введите корректный размер ширины прямоугольника');
+    }
   },
-  setHeight: function(value) {
+  setHeight(value) {
     if (typeof value === 'number') {
       this.height = value;
-    } else { console.log('Введите корректный размер высоты прямоугольника'); }
+    } else {
+      console.log('Введите корректный размер высоты прямоугольника');
+    }
   },
-  getPerimeter: function() {
+  getPerimeter() {
     return ((this.width + this.height) * 2);
   },
-  getSquare: function() {
+  getSquare() {
     return (this.width * this.height);
   },
-} 
+};
 rectangle.setWidth(20);
 rectangle.setHeight(30);
-console.log(rectangle.getPerimeter() + ' ' + 'см');
-console.log(rectangle.getSquare() + ' ' + 'см');
+console.log(rectangle.getPerimeter() + ' см');
+console.log(rectangle.getSquare() + ' см');
