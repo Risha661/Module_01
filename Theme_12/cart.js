@@ -5,10 +5,10 @@ const cart = {
   count: 0,
   discount: 0,
 
-  get getTotalPrice() {
+  get totalPrice() {
     return this.calculateItemPrice();
   },
-  set setDiscount(promocode) {
+  set discountSet(promocode) {
     if (promocode === 'METHED') {
       this.discount += 15;
     } else if (promocode === 'NEWYEAR') {
@@ -35,7 +35,7 @@ const cart = {
   },
   print() {
     const cartStr = JSON.stringify(this.items);
-    const cartStr2 = JSON.stringify(this.getTotalPrice.toString());
+    const cartStr2 = JSON.stringify(this.totalPrice.toString());
     console.log(cartStr);
     console.log(cartStr2);
   },
@@ -44,10 +44,10 @@ const cart = {
 cart.add('milk', 100, 3); // отрабатывает и выводит в консоль
 cart.add('eggs', 75, 1); // отрабатывает и выводит в консоль
 cart.add('tomato', 250, 4); // отрабатывает и выводит в консоль
-cart.setDiscount = 'METHED'; // применяем промокод
+cart.discountSet = 'METHED'; // применяем промокод
 cart.print(); // выводим сумму корзины с скидкой
 
 cart.clear();
 cart.add('salt', 100, 2); // отрабатывает и выводит в консоль
-cart.setDiscount = 'NEWYEAR'; // применяем промокод
+cart.discountSet = 'NEWYEAR'; // применяем промокод
 cart.print(); // выводим сумму корзины с скидкой
