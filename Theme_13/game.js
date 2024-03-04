@@ -28,7 +28,8 @@
         // alert('Вы точно хотите закончить игру?');
         const userAnswer = prompt('Точно ли Вы хотите выйти?');
         if (userAnswer !== null) {
-          alert('Game over!');
+          alert('Игра окончена! Игрок - ' + result.player +
+          ' комп - ' + result.computer);
           return;
         } else {
           start();
