@@ -54,13 +54,15 @@
         } else {
           strCheck = 'Точно ли Вы хотите выйти?';
         }
-        const userAnswer = prompt(strCheck);
+        const userAnswer = confirm(strCheck);
         if (userAnswer !== null) {
           if (language === 'EN' || language === 'ENG') {
-            alert('Game over! Player - ' + result.player +
+            alert('You answered "Yes"' +
+            ' Game over! Player - ' + result.player +
               ' computer - ' + result.computer);
           } else {
-            alert('Игра окончена! Игрок - ' + result.player +
+            alert('Вы ответили "Да"!' +
+            ' Игра окончена! Игрок - ' + result.player +
               ' комп - ' + result.computer);
           }
           return;

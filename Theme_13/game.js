@@ -26,7 +26,7 @@
       let userChange = prompt('Камень, ножницы, бумага?');
       if (userChange === null) {
         // alert('Вы точно хотите закончить игру?');
-        const userAnswer = prompt('Точно ли Вы хотите выйти?');
+        const userAnswer = confirm('Точно ли Вы хотите выйти?');
         if (userAnswer !== null) {
           alert('Игра окончена! Игрок - ' + result.player +
           ' комп - ' + result.computer);
