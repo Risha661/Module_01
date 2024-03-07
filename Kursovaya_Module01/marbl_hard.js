@@ -2,18 +2,15 @@
 (() => {
   const FIGURES_RUS = ['камень', 'ножницы', 'бумага'];
   const varNum = ['четное', 'нечетное'];
- 
   const getRandomIntInclusive = (min, max) => {
     const minCeiled = Math.ceil(min);
     const maxFloored = Math.floor(max);
     return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
   };
- 
-  const isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
- 
-  const game = (language) => {
+  const isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n) && Number.isInteger(Number(n));
+  };
+  const game = () => {
     const result = {
       player: 0,
       computer: 0,
@@ -21,10 +18,9 @@
       computerAmount: 5,
       compHandsGuess: 0,
       playerHandGuess: 0,
-      currentTry: 0,               
+      currentTry: 0,
     };
- 
-    function wannaExit(){
+    function wannaExit() {
       const userAnswer = confirm('Точно ли Вы хотите выйти?');
       if (userAnswer) {
         alert('Игра окончена!');
@@ -33,18 +29,34 @@
         return false;
       }
     }
- 
+    function checkMass(index, str, mass) {
+      if (index >= mass.length) {
+        return -1;
+      }
+      if (str.length > 1) {
+        if (mass[index].includes(str)) {
+          return index;
+        } else {
+          return checkMass(index + 1, str, mass);
+        }
+      } else if (str.length === 1) {
+        if (mass[index][0] === str) {
+          return index;
+        } else {
+          return checkMass(index + 1, str, mass);
+        }
+      }
+    }
     return function start() {
- 
       function tryEndGame() {
         const userTryEnd = confirm('Хотите сыграть еще? :)');
         if (userTryEnd) {
-          start();
-        }  else {
+          return start();
+        } else {
           return true;
         }
       }
-
+      const maxBallsValue = result.computerAmount + result.playerAmount;
       function compGuess() {
         result.compHandsGuess = getRandomIntInclusive(1, result.computerAmount);
         console.log('На момент хода бота у игрока ' +
@@ -60,9 +72,15 @@
         } else if ((playerTry === true && (result.compHandsGuess % 2 !== 0)) ||
           (playerTry === false && (result.compHandsGuess % 2 === 0))) {
           alert('Вы проиграли! Бот выиграл этот раунд!');
-          result.computerAmount += result.compHandsGuess;
-          result.playerAmount -= result.compHandsGuess;
-          result.compHandsGuess = 0;
+          if (result.playerAmount >= result.compHandsGuess) {
+            result.computerAmount += result.compHandsGuess;
+            result.playerAmount -= result.compHandsGuess;
+            result.compHandsGuess = 0;
+          } else {
+            result.computerAmount += result.playerAmount;
+            result.playerAmount = 0;
+            result.compHandsGuess = 0;
+          }
         }
         if (result.playerAmount > 0) {
           if (result.computerAmount > 0) {
@@ -77,32 +95,31 @@
           maxBallsValue + ' шариков. У вас 0 шариков.');
         }
         return tryEndGame();
-
       }
-
       function userGuess() {
         console.log('На момент хода игрока у бота ' +
          result.computerAmount + ' шариков, у игрока - ' + result.playerAmount);
         result.playerHandGuess = prompt('Выберите количество' +
          ' шариков от 1 до ' + result.playerAmount);
-  
-      if (result.playerHandGuess == null){
-        let a = wannaExit();
-        if (a){
-          return true;
-        } else {
-          return userGuess();
+        if (result.playerHandGuess === null) {
+          const a = wannaExit();
+          if (a) {
+            return true;
+          } else {
+            return userGuess();
+          }
         }
-      }
-      if (!isNumber(result.playerHandGuess)) {
-        alert('Введите корректное число!');
-        return userGuess();
-      } else if (result.playerHandGuess < 1 || result.playerHandGuess > result.playerAmount) {
-        alert('Введите корректное в диапазоне: от 1 до ' + result.playerAmount);
-        return userGuess();
-      } else {
-        result.playerHandGuess = Number(result.playerHandGuess);
-      }
+        if (!isNumber(result.playerHandGuess)) {
+          alert('Введите корректное число!');
+          return userGuess();
+        } else if (result.playerHandGuess < 1 || result.playerHandGuess >
+           result.playerAmount) {
+          alert('Введите корректное в диапазоне: от 1 до ' +
+           result.playerAmount);
+          return userGuess();
+        } else {
+          result.playerHandGuess = Number(result.playerHandGuess);
+        }
         console.log('Игрок загадал ' + result.playerHandGuess + ' шариков');
         const botTry = varNum[getRandomIntInclusive(0, 1)];
         console.log('Бот выбрал - ' + botTry);
@@ -118,9 +135,15 @@
          (result.playerHandGuess % 2 !== 0)) ||
           (botTry === 'нечетное' && (result.playerHandGuess % 2 === 0))) {
           alert('Вы выиграли! Бот проиграл этот раунд!');
-          result.computerAmount -= result.playerHandGuess;
-          result.playerAmount += result.playerHandGuess;
-          result.playerHandGuess = 0;
+          if (result.computerAmount >= result.playerHandGuess) {
+            result.computerAmount -= result.playerHandGuess;
+            result.playerAmount += result.playerHandGuess;
+            result.playerHandGuess = 0;
+          } else {
+            result.computerAmount += result.playerAmount;
+            result.playerAmount = 0;
+            result.playerHandGuess = 0;
+          }
           console.log('Вы выиграли. у бота шариков ' +
            result.computerAmount + ' у игрока - ' + result.playerAmount);
         }
@@ -138,32 +161,27 @@
         }
         return tryEndGame();
       }
-
       result.playerAmount = 5;
       result.computerAmount = 5;
       result.compHandsGuess = 0;
       result.playerHandGuess = 0;
-      const maxBallsValue = result.computerAmount + result.playerAmount;
       const botChange = FIGURES_RUS[getRandomIntInclusive(0, 2)];
       let userChange = prompt('Камень, ножницы, бумага?');
       if (userChange === null) {
-        let a = wannaExit();
-        if (a){
+        const a = wannaExit();
+        if (a) {
           return true;
         } else {
-          start();
+          return start();
         }
       }
       userChange = userChange.toLowerCase();
-      if (userChange[0] === 'к') {
-        userChange = 'камень';
-      } else if (userChange[0] === 'б') {
-        userChange = 'бумага';
-      } else if (userChange[0] === 'н') {
-        userChange = 'ножницы';
-      } else if (FIGURES_RUS.indexOf(userChange) === -1) {
-        alert('Введите верное значение!!');
-        start();
+      const isValid = checkMass(0, userChange, FIGURES_RUS);
+      if (isValid === -1) {
+        alert('Неверное значение, повторите ввод!');
+        return start();
+      } else {
+        userChange = FIGURES_RUS[isValid];
       }
       if (userChange === botChange) {
         confirm('У вас с ботом ничья! Давайте заново!');
@@ -178,27 +196,21 @@
         confirm('Бот выиграл! В игре "Марблы" первый ход за ним!');
         result.currentTry = 1;
       }
- 
-      let a;
-      let b;
-      if (result.currentTry == 0) {
-        a = userGuess();
-      } else {
-        b = compGuess(); 
-      }
-
-      while (!a || !b){   
-        if(a || b){
+      let a = false;
+      let b = false;
+      while (!a || !b) {
+        if (a || b) {
           break;
         }
-        if (result.currentTry == 1){
+        if (result.currentTry === 1) {
           b = compGuess();
-        } else if (result.currentTry == 0){
+        } else if (result.currentTry === 0) {
           a = userGuess();
         }
       }
+      return true;
     };
   };
   window.RPS = game;
 })();
- 
+
