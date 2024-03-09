@@ -50,5 +50,6 @@ titleH2[4].remove();
 titleH2[3].remove();
 
 titleH2[1].textContent = 'This и прототипы объектов';
+cloneTitle2.textContent = 'Область видимости и замыкание';
 
 
